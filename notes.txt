@@ -1,0 +1,25 @@
+shorthand declration for variables (:=) only works inside functions
+var can be reassign, but const can't
+int and uint 
+int is recommended to use for most integers (we only use uint and intptr in specific cases)
+byte and rune ??
+float32 and float64
+bool 
+comlex64 and complex128 (complex numbers)
+Zero values - default falsy values 
+defined vs alias type - alias type is just a new name for the same type | defined type is a new type
+
+// String formatting (templating)
+1. fmt.Print - takes a string and returns - little or no formatting 
+2. fmt.Println - takes a string and returns - adds a new line at the end and also a space at the end of every arg
+3. fmt.Printf - takes a string and returns - allows for formatting of numbers, booleans, int and so on (like %v, %T, %d, %f, %s, %q, %p, %x, %X, %b, %o, %U, %c, %e, %E, %g, %G, %t, %T, %v)
+- annotation verbs (https://pkg.go.dev/fmt)
+- escaping characters (%%) - to print % sign
+
+Sprint, Sprintf, Sprintln - return a string instead of printing it to the console
+
+// Flot control 
+break statements are automatically added at the end of each case block in a switch statement
+fallthrough - to fall through to the next case block regardless of the condition
+
+// Functions 
