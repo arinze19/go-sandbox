@@ -23,3 +23,13 @@ break statements are automatically added at the end of each case block in a swit
 fallthrough - to fall through to the next case block regardless of the condition
 
 // Functions 
+1. Can return multiple values (who even does that??)
+2. Named returns [naked return]
+3. Functions are first class citizens in Go
+4. Variadic functions 
+5. Init - runs before main
+6. Defer - postpones a functions from running until the surrounding function returns
+- Defer stack - LIFO
+
+// Loops 
+1. Go does not have a while loop
