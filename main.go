@@ -4,8 +4,9 @@ import "fmt";
 
 
 func main() {
-	// result := myFunc("Arinze", "Obi")
+	result := myFunc("Arinze", "Obi")
 	// result := add(1, 2, 3, 4, 5)
+	fmt.Println(result)
 	defer fmt.Println("This is the last line of the main function: Thanks to defer")
 	defer fmt.Println("This is the second to the last line of the main function: Thanks to defer")
 	fmt.Println("This is the first line of the main function")
