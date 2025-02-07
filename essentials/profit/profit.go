@@ -1,4 +1,4 @@
-package profit
+package essentials
 
 import (
 	"fmt"
@@ -7,14 +7,14 @@ import (
 func ProfitCalculator() {
 	// ASSIGNMENT
 	// 1. Profit calculator
-	// 2. ask for revenue, expenses and tax rate 
+	// 2. ask for revenue, expenses and tax rate
 	// 3. calculate earnings before tax and earnings after tax
-	// 4. calculate the ratio 
+	// 4. calculate the ratio
 	// 5. print EBT, EAT and ratio
 	var revenue, expenses, taxRate float64
 	var earningsBeforeTax, earningsAfterTax, ratio float64
 
-	// get user input 
+	// get user input
 	fmt.Print("What is your revenue for the year?: ")
 	fmt.Scan(&revenue)
 
@@ -28,8 +28,7 @@ func ProfitCalculator() {
 	fmt.Print("What is the tax rate in your country?: ")
 	fmt.Scan(&taxRate)
 
-
-	// calculate the inputs 
+	// calculate the inputs
 	earningsBeforeTax = revenue - expenses
 	earningsAfterTax = earningsBeforeTax - (earningsBeforeTax * (taxRate / 100))
 	ratio = earningsAfterTax / earningsBeforeTax
