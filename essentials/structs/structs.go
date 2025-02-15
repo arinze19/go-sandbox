@@ -33,3 +33,14 @@ func (person *Person) Initiate() {
 	fmt.Print("How old are you?: ")
 	fmt.Scanln(&person.age)
 }
+
+type Admin struct {
+	Person
+	role string
+}
+
+func (admin *Admin) Greet() {
+	admin.role = "admin"
+	message := fmt.Sprintf("Hello, my name is %s %s and I am %d years old. I am an admin and my role is %s\n", admin.firstName, admin.lastName, admin.age, admin.role)
+	fmt.Print(message)
+}
