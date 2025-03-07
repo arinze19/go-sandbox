@@ -5,16 +5,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
-	"strconv"
+	"os/exec"
+	"runtime"
 	"strings"
 	"time"
 )
 
-// functionalities
-// - display all notes
-// - write a note
-// - delete a note
+func ClearTerminal() {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd", "/c", "cls") // Windows
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	} else {
+		cmd := exec.Command("clear") // macOS/Linux
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+	}
+}
+
 type Note struct {
 	Id      int       `json:"id"`
 	Title   string    `json:"title"`
@@ -34,13 +44,6 @@ func (note *Note) New() {
 	note.Content = strings.TrimSpace(content)
 
 	note.Date = time.Now()
-
-	// if err != nil {
-	// what the difference between using log.Paniclc and using just panic
-	// panic is a built-in function that stops the ordinary flow of control and begins panicking.
-	// log.Panicln is a function in the log package that prints the arguments to the standard logger and then calls panic.
-	// 	log.Panicln("Error occurered while opening the file:", err)
-	// }
 
 	var notes []Note
 
@@ -67,7 +70,7 @@ func (note *Note) New() {
 		log.Panicln("Error occured while marshalling the note:", err)
 	}
 
-	note.Id = len(notes) + 1
+	note.Id = rand.Intn(1000000)
 
 	notes = append(notes, *note)
 
@@ -83,7 +86,9 @@ func (note *Note) New() {
 		log.Panicln("Error occured while writing to the file:", err)
 	}
 
-	fmt.Println("Note saved to file")
+	ClearTerminal()
+
+	fmt.Println("Note saved to file 🎉🥳")
 }
 
 func (note *Note) Read() {
@@ -103,25 +108,24 @@ func (note *Note) Read() {
 		log.Panicln("Error occured while unmarshalling notes", err)
 	}
 
+	fmt.Println("=====================================")
+	fmt.Println("Here are your notes 📝")
+	fmt.Println("=====================================")
+
 	for index, note := range notes {
-		fmt.Printf("%d. %s \n", index, note.Title)
-		fmt.Printf("   %s \n", note.Content)
-		fmt.Printf("===================================== \n")
+		fmt.Printf("%d.  | %s    | %s | %s  \n", index+1, note.Title, note.Content, note.Date.Format("January 02, 2006 15:04:05"))
 	}
+	fmt.Println("=====================================")
 }
 
 func (note *Note) Delete() {
 	// get id
-	// search notes for id
-	fmt.Println("What is the id of the note you would like to delete")
-	var id string
-	fmt.Scan(&id)
+	fmt.Println("What is the title of the note you would like to delete")
+	reader := bufio.NewReader(os.Stdin) // use bufio for input
 
-	normalizedId, err := strconv.Atoi(id)
-
-	if err != nil {
-		log.Panicln("Please provide a valid number to delete note")
-	}
+	var title string
+	title, _ = reader.ReadString('\n')
+	title = strings.TrimSpace(title)
 
 	var notes []Note
 	var updatedNotes []Note
@@ -139,7 +143,8 @@ func (note *Note) Delete() {
 	}
 
 	for _, note := range notes {
-		if note.Id != normalizedId {
+		fmt.Println(note.Title, title, note.Title == title)
+		if note.Title != title {
 			updatedNotes = append(updatedNotes, note)
 		}
 	}
@@ -157,5 +162,7 @@ func (note *Note) Delete() {
 		log.Panicln("Seems there was an issue while trying to update your notes, please try again later")
 	}
 
-	fmt.Printf("Removed note with id %d successfully \n", normalizedId)
+	ClearTerminal()
+
+	fmt.Printf("Removed note with title %s successfully 🚮 \n", title)
 }

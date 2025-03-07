@@ -16,6 +16,9 @@ func main() {
 		fmt.Println("1. Add a new note \n2. List all notes \n3. Delete a note \nPress q to exit the application")
 		fmt.Scan(&choice)
 
+		// Clear terminal screen
+		projects.ClearTerminal()
+
 		switch choice {
 		case "1":
 			noteTaker.New()
